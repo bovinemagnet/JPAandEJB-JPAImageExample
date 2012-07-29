@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+<!-- $Id: persistence.xml,v 1.1 2012/05/13 22:05:43 paul Exp $ -->
+  <persistence-unit name="JPATestPU" transaction-type="RESOURCE_LOCAL">
+    <provider>oracle.toplink.essentials.PersistenceProvider</provider>
+    <class>au.com.sup.jpatest.ImageExample</class>
+    <properties>
+      <property name="toplink.jdbc.user" value="play"/>
+      <property name="toplink.jdbc.password" value="play"/>
+      <property name="toplink.jdbc.url" value="jdbc:derby:JPATest;create=true"/>
+      <property name="toplink.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+      <property name="toplink.ddl-generation" value="drop-and-create-tables"/>
+      
+      <!--  Cache Directives -->
+      <!--  <property name="toplink.cache.shared.Employee" value="false"/>
+      <property name="toplink.cache.shared.Department" value="false"/>
+      or  
+      <property name="toplink.cache.shared.default" value="false"/>
+         -->
+      
+    </properties>
+  </persistence-unit>
+  
+  
+  <persistence-unit name="JPAImageOpenJPA" transaction-type="RESOURCE_LOCAL">
+    <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+    <class>au.com.sup.jpatest.ImageExample</class>
+    <properties>
+		<property name="openjpa.ConnectionDriverName" value="org.apache.derby.jdbc.EmbeddedDriver" />
+		<property name="openjpa.ConnectionURL" value="jdbc:derby:JPATest;create=true" />
+		<property name="openjpa.ConnectionUserName" value="play"/>
+		<property name="openjpa.ConnectionPassword" value="play"/> 
+    	<!--  <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction=add,deleteTableContents)"/>  -->
+    	<!--  <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction=refresh, DropTables=true)" />  -->
+    	<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema" />
+
+		<!--  Cache -->
+    	<!--  <property name="openjpa.DataCache" value="true"/> -->
+    	<property name="openjpa.RemoteCommitProvider" value="sjvm"/>
+    	<property name="openjpa.DataCache" value="true(CacheSize=5000, SoftReferenceSize=0)"/>
+    	
+    </properties>
+  </persistence-unit>
+  
+  
+    <persistence-unit name="H2JPAImageOpenJPA" transaction-type="RESOURCE_LOCAL">
+    <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+    <class>au.com.sup.jpatest.ImageExample</class>
+    <properties>
+		<property name="openjpa.ConnectionDriverName" value="org.h2.Driver" />
+		<!--  <property name="openjpa.ConnectionURL" value="jdbc:h2:mem:test_mem" /> -->
+		<!--  <property name="openjpa.ConnectionURL" value="jdbc:h2:file:/home/e03885/tmp/h2" /> -->
+		<!--  <property name="openjpa.ConnectionURL" value="jdbc:h2:file:/home/e03885/tmp/h2" /> -->
+		<property name="openjpa.ConnectionURL" value="jdbc:h2:file:~/tmp;USER=play;PASSWORD=play" />
+		
+		<property name="openjpa.ConnectionUserName" value="play"/>
+		<property name="openjpa.ConnectionPassword" value="play"/>  
+    	<!--  <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction=add,deleteTableContents)"/>  -->
+    	<!--  <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction=refresh, DropTables=true)" />  -->
+    	<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema" />
+
+		<!--  Cache -->
+    	<!--  <property name="openjpa.DataCache" value="true"/> -->
+    	<property name="openjpa.RemoteCommitProvider" value="sjvm"/>
+    	<property name="openjpa.DataCache" value="true(CacheSize=5000, SoftReferenceSize=0)"/>
+    	<property name="openjpa.Log" value="SQL=TRACE"/>
+    	
+    </properties>
+  </persistence-unit>
+  
+</persistence>
