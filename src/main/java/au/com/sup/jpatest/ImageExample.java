@@ -100,7 +100,9 @@ public class ImageExample implements Serializable {
     public String toString() {
         return "au.com.sup.jpatest.ImageExample[id=" + id + "]";
     }
-
+    /**
+     *
+     */
     public String getFileName()
     {
         return FileName;
