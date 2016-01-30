@@ -6,8 +6,8 @@ package au.com.sup.jpatest;
 
 import au.com.sup.jpatest.exceptions.NonexistentEntityException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -23,6 +23,9 @@ import javax.transaction.UserTransaction;
  * @author Paul Snow
  */
 public class ImageExampleJpaController {
+    // Added a logger to be able to log.
+    final Logger logger = LoggerFactory.getLogger(ImageExampleJpaController.class);
+
 
     // The @PersistenceUnit is a tag to allow you to create your persistence unit with the appropriate name.
     // Thus it should be the same: @PersistenceUnit(unitName="H2JPAImageOpenJPA") == emf = Persistence.createEntityManagerFactory("H2JPAImageOpenJPA");
@@ -37,6 +40,8 @@ public class ImageExampleJpaController {
      *
      */
     public ImageExampleJpaController() {
+        logger.info("ImageExampleJPAController.constructor");
+
         //
         //emf = Persistence.createEntityManagerFactory("JPATestPU");
         //emf = Persistence.createEntityManagerFactory("JPAImageOpenJPA");
@@ -61,6 +66,7 @@ public class ImageExampleJpaController {
      * @param imageExample
      */
     public void create(ImageExample imageExample) {
+        logger.info("ImageExampleJPAController.create");
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -80,6 +86,7 @@ public class ImageExampleJpaController {
      * @throws Exception
      */
     public void edit(ImageExample imageExample) throws NonexistentEntityException, Exception {
+        logger.info("ImageExampleJPAController.edit");
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -107,6 +114,7 @@ public class ImageExampleJpaController {
      * @throws NonexistentEntityException
      */
     public void destroy(Long id) throws NonexistentEntityException {
+        logger.info("ImageExampleJPAController.destroy");
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -169,6 +177,7 @@ public class ImageExampleJpaController {
      * @return
      */
     public ImageExample findImageExample(Long id) {
+        logger.info("ImageExampleJPAController.findImageExample");
         EntityManager em = getEntityManager();
         try {
             return em.find(ImageExample.class, id);
@@ -194,6 +203,7 @@ public class ImageExampleJpaController {
      * @return
      */
     public int getImageExampleCount() {
+        logger.info("ImageExampleJPAController.getImageExampleCount");
         EntityManager em = getEntityManager();
         try {
             return ((Long) em.createQuery("select count(o) from ImageExample as o").getSingleResult()).intValue();
@@ -217,7 +227,9 @@ public class ImageExampleJpaController {
             try {
                 returnInt = em.createNamedQuery("ImageExample.deleteAll").executeUpdate();
             } catch (EntityNotFoundException enfe) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, enfe);
+
+                logger.error("ImageExampleJPAController.create" + enfe.toString());
+                //Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, enfe);
             }
             em.getTransaction().commit();
             em.flush();

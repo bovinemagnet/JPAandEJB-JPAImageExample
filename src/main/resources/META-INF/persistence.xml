@@ -21,7 +21,7 @@
     </properties>
   </persistence-unit>
   
-  
+
   <persistence-unit name="JPAImageOpenJPA" transaction-type="RESOURCE_LOCAL">
     <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
     <class>au.com.sup.jpatest.ImageExample</class>
@@ -41,18 +41,22 @@
     	
     </properties>
   </persistence-unit>
-  
-  
+  <!-- The main persistence unit used by the example code as checked in -->
+    <!-- -->
+    <!-- -->
+    <!-- -->
+    <!-- -->
     <persistence-unit name="H2JPAImageOpenJPA" transaction-type="RESOURCE_LOCAL">
     <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
     <class>au.com.sup.jpatest.ImageExample</class>
     <properties>
 		<property name="openjpa.ConnectionDriverName" value="org.h2.Driver" />
-		<!--  <property name="openjpa.ConnectionURL" value="jdbc:h2:mem:test_mem" /> -->
+		<!-- <property name="openjpa.ConnectionURL" value="jdbc:h2:mem:test_mem" /> -->
 		<!--  <property name="openjpa.ConnectionURL" value="jdbc:h2:file:/home/e03885/tmp/h2" /> -->
 		<!--  <property name="openjpa.ConnectionURL" value="jdbc:h2:file:/home/e03885/tmp/h2" /> -->
-		<property name="openjpa.ConnectionURL" value="jdbc:h2:file:~/tmp;USER=play;PASSWORD=play" />
-		
+		<!-- <property name="openjpa.ConnectionURL" value="jdbc:h2:file:~/tmp;USER=play;PASSWORD=play" /> -->
+        <property name="openjpa.ConnectionURL" value="jdbc:h2:file:d:/temp/temp;USER=play;PASSWORD=play" />
+
 		<property name="openjpa.ConnectionUserName" value="play"/>
 		<property name="openjpa.ConnectionPassword" value="play"/>  
     	<!--  <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(SchemaAction=add,deleteTableContents)"/>  -->
@@ -64,6 +68,12 @@
     	<property name="openjpa.RemoteCommitProvider" value="sjvm"/>
     	<property name="openjpa.DataCache" value="true(CacheSize=5000, SoftReferenceSize=0)"/>
     	<property name="openjpa.Log" value="SQL=TRACE"/>
+
+
+        <property name="openjpa.DynamicEnhancementAgent" value="true"/>
+        <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/>
+
+        <property name="openjpa.ConnectionFactoryProperties" value="PrettyPrint=true, PrettyPrintLineLength=72, PrintParameters=true, MaxActive=10, MaxIdle=5, MinIdle=2, MaxWait=60000"/>
     	
     </properties>
   </persistence-unit>
